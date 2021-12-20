@@ -7,16 +7,15 @@ import sys
 #outputFilePath = input('Enter the Output Filepath: ') #Comment these out
 holidaysFilePath = 'src\\Holidays List.txt' #Leave this line functional
 #INSERT EASY-RUN CODE FROM OBSIDIAN HERE (See Programming Project Documentation Register)
-inputFilePath = 'C:\\Users\\Chris\\Google Drive\\Household\\FIRE\\Schwab Personal Value Data - 12-16-2021.txt'
-outputFilePath = 'C:\\Users\\Chris\\Google Drive\\Household\\FIRE\\Schwab Personal Value Data - 12-16-2021 - CLEANED.txt'
 
 try:
     rawData = open(inputFilePath, 'r')
-    cleanData = open(outputFilePath, 'w') # Note: file must be empty - contain no data
-    holidaysData = open(holidaysFilePath, 'r')
+    cleanData = open(outputFilePath, 'w') #Note: file must be empty - contain no data
+    holidaysData = open(holidaysFilePath, 'r') #Note: Holidays file must have data formatted correctly - see extant file for proper format
 
     holidays = holidaysData.readlines()
 
+    #Process data in PV Data file
     for line in rawData :
         line = line.rstrip() # Remove newline character from all lines
         splitLine = line.split() #Make a list to contain all separate elements (words & numbers) in the current line
@@ -31,6 +30,7 @@ try:
         if line.startswith('Saturday') or line.startswith('Sunday') :
             continue
 
+        #Check if curent line is a holiday
         isHoliday = False
         for date in holidays :
             date = date.rstrip()
