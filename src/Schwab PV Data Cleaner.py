@@ -3,21 +3,23 @@ import sys
 
 # Schwab Personal Value Data Cleaner
 
-rawfilepath = input('Input Raw Filepath: ')
-cleanfilepath = input('Input Clean Filepath: ')
-#INSERT EASY-RUN CODE FROM OBSIDIAN HERE
+#inputFilePath = input('Enter the Input Filepath: ') #Comment these out
+#outputFilePath = input('Enter the Output Filepath: ') #Comment these out
+holidaysFilePath = 'src\\Holidays List.txt' #Leave this line functional
+#INSERT EASY-RUN CODE FROM OBSIDIAN HERE (See Programming Project Documentation Register)
 
 try:
-    rawData = open(rawfilepath, 'r')
-    cleanData = open(cleanfilepath, 'w') # Note: file must be empty - contain no data
-    holidaysData = open(holidaysfilepath, 'r')
+    rawData = open(inputFilePath, 'r')
+    cleanData = open(outputFilePath, 'w') #Note: file must be empty - contain no data
+    holidaysData = open(holidaysFilePath, 'r') #Note: Holidays file must have data formatted correctly - see extant file for proper format
 
     holidays = holidaysData.readlines()
 
+    #Process data in PV Data file
     for line in rawData :
         line = line.rstrip() # Remove newline character from all lines
-        splitLine = line.split()
-        del splitLine[-1]
+        splitLine = line.split() #Make a list to contain all separate elements (words & numbers) in the current line
+        del splitLine[-1] #Remove dollar amount from current line (it is the last item in the line)
 
         dateOnly = ''
         index = 0
@@ -28,6 +30,7 @@ try:
         if line.startswith('Saturday') or line.startswith('Sunday') :
             continue
 
+        #Check if curent line is a holiday
         isHoliday = False
         for date in holidays :
             date = date.rstrip()
